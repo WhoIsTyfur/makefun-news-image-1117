@@ -10,9 +10,9 @@ An entry for make.fun's bounty [Sum up 17 November's world news in one image](ht
 
 ## What it does
 `main.py` (Python 3.13, standard library only) copies `entry.png` to `/output/entry.png`
-(or to `$MAKEFUN_OUTPUT_DIR`). The image is a 1024x1024 palette PNG: a dated front page with
-four illustrated lead stories, a world map with numbered pins, six icon tiles and region columns,
-52 stories in all from 17 November 2026.
+(or to `$MAKEFUN_OUTPUT_DIR`). The image is a 1024x1024 palette PNG: a dated front page with a
+figures strip, three illustrated lead stories, twelve illustrated tiles, a world map placing every
+story, and a region-coded list: 53 stories in all from 17 November 2026.
 
 The image is drawn by `art/draw.py` (Pillow, run once on the author's machine); the stories and
 the outlets that reported each one are in `research/sources-2026-11-17.md`.
