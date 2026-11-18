@@ -455,6 +455,41 @@ def t_robots(x, y, w, h):
     label_bar(x, y, w, h, "GENEVA \u00b7 TREATY TALKS")
 
 
+def t_crash(x, y, w, h):
+    rect(x, y, x + w, y + h, fill=(214, 222, 232))
+    rect(x, y + h - 30, x + w, y + h - 13, fill=(244, 246, 250))  # snow
+    for i in range(5):  # dark conifers
+        tx = x + 8 + i * 14
+        poly([(tx, y + h - 22), (tx + 5, y + h - 40), (tx + 10, y + h - 22)], fill=(50, 80, 60))
+    # broken transport plane lying in the snow, smoke above
+    poly([(x + 76, y + h - 24), (x + 120, y + h - 30), (x + 124, y + h - 24), (x + 80, y + h - 18)], fill=(120, 126, 136))
+    poly([(x + 128, y + h - 28), (x + 146, y + h - 34), (x + 148, y + h - 24), (x + 130, y + h - 22)], fill=(120, 126, 136))
+    poly([(x + 96, y + h - 28), (x + 104, y + h - 40), (x + 110, y + h - 28)], fill=(100, 106, 116))
+    for i, (sx, sy, r) in enumerate([(124, -36, 6), (128, -44, 7), (124, -52, 6)]):
+        circle(x + sx, y + h + sy, r, fill=(110 + i * 25,) * 3)
+    badge(x + 6, y + 4, "ALL 19 ABOARD KILLED", (200, 40, 40))
+    label_bar(x, y, w, h, "KEMEROVO · SIBERIA")
+
+
+def t_gaza(x, y, w, h):
+    rect(x, y, x + w, y + h, fill=(236, 226, 206))
+    for bx, bh in [(6, 22), (22, 30), (40, 16), (56, 26)]:  # damaged buildings
+        rect(x + bx, y + h - 13 - bh, x + bx + 14, y + h - 13, fill=(160, 150, 136))
+        for k in range(2):
+            rect(x + bx + 3, y + h - 13 - bh + 4 + k * 8, x + bx + 6, y + h - 13 - bh + 7 + k * 8, fill=(90, 84, 76))
+    poly([(x + 40, y + h - 29), (x + 47, y + h - 34), (x + 54, y + h - 29)], fill=(236, 226, 206))
+    # aid truck waiting at a barrier
+    tx = x + 86
+    rect(tx, y + h - 34, tx + 34, y + h - 19, fill=WHITE, outline=(90, 90, 90), w=0.8)
+    rect(tx + 34, y + h - 30, tx + 46, y + h - 19, fill=(70, 110, 170))
+    circle(tx + 8, y + h - 18, 3.5, fill=(40, 40, 40))
+    circle(tx + 38, y + h - 18, 3.5, fill=(40, 40, 40))
+    text(tx + 17, y + h - 30, "AID", F_ILL, (60, 90, 160), anchor="ma")
+    line([(tx - 8, y + h - 34), (tx - 8, y + h - 16)], (200, 40, 40), 2)
+    badge(x + w - 6, y + 4, "5 KILLED", (200, 40, 40), anchor="r")
+    label_bar(x, y, w, h, "GAZA STRIP")
+
+
 def t_mozambique(x, y, w, h):
     rect(x, y, x + w, y + h, fill=(234, 230, 220))
     flag(x + 12, y + 10, 50, 32, "MZ")
@@ -485,12 +520,12 @@ TILES = [
      "Mexico and Bolivia too"),
     (t_mongolia, "ASIA", "POLITICS", "Mongolia's president says he will resign",
      "He denies graft claims"),
-    (t_alaska, "AMERICAS", "ELECTIONS", "Peltola projected to unseat Sen. Sullivan",
-     "Democrats gain Alaska seat"),
+    (t_crash, "ASIA", "AIR CRASH", "Russian military plane crash kills 19",
+     "An-12 down near Kemerovo"),
     (t_summit, "ASIA", "DIPLOMACY", "Trump, Xi and Putin to meet in Shenzhen",
      "Summit set for Thursday"),
-    (t_trade, "AMERICAS", "TRADE", "Canada and China agree new tariff cuts",
-     "After Carney\u2013Xi talks"),
+    (t_gaza, "MIDDLE EAST", "GAZA", "Israeli strikes kill 5 in Gaza despite truce",
+     "Germany urges far more aid"),
     (t_bangladesh, "ASIA", "LABOUR", "Garment workers tear-gassed in Bangladesh",
      "37 factories shut"),
     (t_westbank, "MIDDLE EAST", "WEST BANK", "UK sanctions Israeli settlement firms",
@@ -506,13 +541,13 @@ TILES = [
 # story number, (lon, lat) for map pins: leads then tiles
 PIN_LL = [
     (50.6, 26.1), (35.5, 45.3), (121.0, 14.6),
-    (-74.0, 40.7), (25.3, 0.5), (-98.0, 37.0), (106.9, 47.9), (-150.0, 63.0), (114.1, 22.5),
-    (-90.0, 56.0), (90.4, 23.8), (35.4, 31.9), (20.5, 44.8), (6.1, 46.2), (32.6, -25.9),
+    (-74.0, 40.7), (25.3, 0.5), (-98.0, 37.0), (106.9, 47.9), (86.1, 55.4), (114.1, 22.5),
+    (34.4, 31.4), (90.4, 23.8), (35.4, 31.9), (20.5, 44.8), (6.1, 46.2), (32.6, -25.9),
 ]
 
 # also-on-the-day list: region, bold lead, rest, (lon, lat)
 ALSO = [
-    ("MIDDLE EAST", "Gaza:", "Israeli strikes kill 5 despite ceasefire", (34.4, 31.4)),
+    ("MIDDLE EAST", "Iran", "denies US claims of a dirty-bomb plot", (51.4, 35.7)),
     ("MIDDLE EAST", "Israel:", "Kahana elected Knesset speaker", (35.2, 31.8)),
     ("MIDDLE EAST", "Iraq:", "troops ring Kataib Hezbollah's Jurf al-Sakhar", (44.1, 32.8)),
     ("MIDDLE EAST", "Yemen:", "Houthis say Saudi strike kills 7 in Hudaydah", (42.9, 14.8)),
@@ -524,9 +559,9 @@ ALSO = [
     ("EUROPE", "Kyiv:", "Russian strikes damage two Dnipro bridges", (30.5, 50.4)),
     ("EUROPE", "France:", "public-sector unions strike over pay", (2.35, 48.85)),
     ("EUROPE", "N. Macedonia:", "5 held over Iran-linked plot", (21.4, 42.0)),
-    ("EUROPE", "EU states and Rwanda", "plan an asylum 'return hub'", (30.1, -1.9)),
     ("EUROPE", "Kosovo:", "17 months added to Tha\u00e7i's sentence", (21.2, 42.7)),
-    ("ASIA", "Russia:", "An-12 military plane crash kills 19", (86.1, 55.4)),
+    ("AMERICAS", "Alaska:", "Peltola called winner two weeks after vote", (-150.0, 61.2)),
+    ("AMERICAS", "Canada and China", "agree new tariff cuts", (-75.7, 45.4)),
     ("ASIA", "Bangladesh:", "activists burn police station", (89.9, 22.9)),
     ("ASIA", "France and Malaysia", "sign rare-earths partnership", (101.7, 3.1)),
     ("ASIA", "Sheinbaum", "meets Xi in China ahead of APEC", (114.1, 22.6)),
