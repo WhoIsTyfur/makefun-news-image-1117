@@ -123,7 +123,7 @@ def para(x, y, segments, max_w, lh, max_lines=None):
 
 # ------------------------------------------------------------------ fonts
 F_KICK = font("arialbd.ttf", 11)
-F_DATE = font("georgiab.ttf", 57)
+F_DATE = font("georgiab.ttf", 80)
 F_STRAP = font("georgiai.ttf", 15)
 F_BADGE = font("arialbd.ttf", 12)
 F_FIG = font("georgiab.ttf", 19)
@@ -468,10 +468,10 @@ def t_mozambique(x, y, w, h):
 
 # ------------------------------------------------------------------ content
 LEADS = [
-    (ill_iran, "MIDDLE EAST", "IRAN WAR", "Bahrain downs Iranian drones; US strikes Iran's Qeshm",
+    (ill_iran, "MIDDLE EAST", "IRAN WAR", "Bahrain says it downed Iranian drones; US hits Qeshm",
      "Third attempt in five days, Bahrain says; US jets struck a missile site on Iran's Qeshm Island."),
-    (ill_bridge, "EUROPE", "UKRAINE WAR", "Ukraine hits Crimean Bridge a second day; 2 killed",
-     "Russia shuts the road again; the Kremlin says the bridge will be rebuilt."),
+    (ill_bridge, "EUROPE", "UKRAINE WAR", "Crimean Bridge hit a second day; Russia says 2 dead",
+     "Ukrainian drones struck the road link to Crimea; the Kremlin says it will be rebuilt."),
     (ill_quad, "ASIA", "DIPLOMACY", "Trump lands in Manila; Quad leaders back minerals deals",
      "US, India, Japan and Australia meet at ASEAN before talks with Xi and Putin in China."),
 ]
@@ -534,7 +534,6 @@ ALSO = [
     ("AFRICA", "South Africa:", "two mass shootings kill 17", (28.2, -25.7)),
     ("AFRICA", "DR Congo:", "WFP says 2.3m in crisis hunger in east", (29.2, -1.7)),
     ("ASIA", "Japan", "protests Russian aircraft airspace breach", (130.4, 33.6)),
-    ("AMERICAS", "US retail sales", "rose 0.2% in October", (-80.0, 35.0)),
     ("AMERICAS", "Costa Rica:", "journalist shot dead, first in 25 years", (-84.1, 9.9)),
     ("AMERICAS", "Mexico:", "journalist found dead in Acapulco", (-99.9, 16.9)),
     ("AMERICAS", "Haiti:", "marches back Salvadoran troops", (-72.3, 18.5)),
@@ -548,8 +547,6 @@ ALSO = [
     ("GLOBAL", "Football:", "Brazil 7\u20130 Singapore; Vin\u00edcius hat-trick", (103.8, 1.3)),
     ("GLOBAL", "Football:", "USA into Nations League semis", (-95.0, 30.0)),
     ("GLOBAL", "FIFA:", "UEFA backs Diallo to challenge Infantino", (8.5, 47.4)),
-    ("GLOBAL", "Study:", "big US data centres emit like Denmark", (-71.1, 42.4)),
-    ("EUROPE", "IMF:", "Ukraine could get $1.6bn more in aid", (30.5, 50.4)),
 ]
 
 N_TOTAL = len(LEADS) + len(TILES) + len(ALSO)
@@ -558,13 +555,17 @@ N_TOTAL = len(LEADS) + len(TILES) + len(ALSO)
 rect(0, 0, W, 20, fill=NAVY)
 text(12, 4.5, "THE WORLD'S NEWS IN ONE PAGE", F_KICK, WHITE)
 text(W - 12, 4.5, f"{N_TOTAL} STORIES \u00b7 SIX CONTINENTS \u00b7 ONE DAY", F_KICK, WHITE, anchor="ra")
-text(W / 2, 25, "TUESDAY 17 NOVEMBER 2026", F_DATE, INK, anchor="ma")
-line([(12, 93), (W - 12, 93)], INK, 2.2)
-line([(12, 96), (W - 12, 96)], INK, 0.8)
-text(14, 101, "Every story on this page happened, or was first reported, on this day.", F_STRAP, (60, 60, 64))
+_size = 80
+while width("Tuesday 17 November 2026", font("georgiab.ttf", _size)) > W - 36:
+    _size -= 1
+F_DATE = font("georgiab.ttf", _size)
+text(W / 2, 92, "Tuesday 17 November 2026", F_DATE, INK, anchor="ms")
+line([(12, 106), (W - 12, 106)], INK, 2.2)
+line([(12, 109), (W - 12, 109)], INK, 0.8)
+text(14, 114, "Every story here happened, or was first reported, on this day. Claims are attributed.", F_STRAP, (60, 60, 64))
 bw = width(f"{N_TOTAL} STORIES \u00b7 6 CONTINENTS \u00b7 ONE DAY", F_BADGE) + 16
-rect(W - 12 - bw, 100, W - 12, 117, fill=RED)
-text(W - 12 - bw / 2, 108.5, f"{N_TOTAL} STORIES \u00b7 6 CONTINENTS \u00b7 ONE DAY", F_BADGE, WHITE, anchor="mm")
+rect(W - 12 - bw, 113, W - 12, 130, fill=RED)
+text(W - 12 - bw / 2, 121.5, f"{N_TOTAL} STORIES \u00b7 6 CONTINENTS \u00b7 ONE DAY", F_BADGE, WHITE, anchor="mm")
 
 # ------------------------------------------------------------------ figures strip
 FIGS = [
@@ -575,7 +576,7 @@ FIGS = [
     ("3rd", "Iran drone attempt in 5 days"),
     ("128", "states at robot-weapons talks"),
 ]
-FY0, FY1 = 122, 160
+FY0, FY1 = 135, 173
 rect(12, FY0, W - 12, FY1, fill=(238, 232, 218))
 fw = (W - 24) / len(FIGS)
 for i, (big, small) in enumerate(FIGS):
@@ -586,7 +587,7 @@ for i, (big, small) in enumerate(FIGS):
         line([(12 + fw * i, FY0 + 6), (12 + fw * i, FY1 - 6)], RULE, 1)
 
 # ------------------------------------------------------------------ leads
-LY = 168
+LY = 180
 LW = (W - 24 - 2 * 14) / 3
 LIH = 112
 lead_bottom = 0
